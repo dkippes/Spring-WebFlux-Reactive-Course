@@ -1,7 +1,12 @@
 package com.example.springbootwebflux.models.documents;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -11,9 +16,19 @@ public class Producto {
     @Id
     private String id;
 
+    @NotEmpty
     private String nombre;
+
+    @NotNull
     private Double precio;
-    private Date createAt; // * Se convierte en un tipo BSON
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createAt; // * Se convierte en un tipo BSON y hay que manejar el formato
+
+    @Valid
+    private Categoria categoria;
+
+    private String foto;
 
     public Producto() {
     }
@@ -21,6 +36,11 @@ public class Producto {
     public Producto(String nombre, Double precio) {
         this.nombre = nombre;
         this.precio = precio;
+    }
+
+    public Producto(String nombre, Double precio, Categoria categoria) {
+        this(nombre, precio);
+        this.categoria = categoria;
     }
 
     public String getId() {
@@ -53,5 +73,21 @@ public class Producto {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

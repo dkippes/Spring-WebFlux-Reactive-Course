@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1 th:text="${titulo}"></h1>
+<a th:href="@{/form}">Crear +</a>
 <table>
     <thead>
     <tr>
@@ -16,14 +17,20 @@
         <th>Nombre</th>
         <th>Precio</th>
         <th>Fecha</th>
+        <th>Categoria</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="p : ${productos}">
-        <td th:text="${p.id}"></td>
+        <td><a th:href="@{/ver/} + ${p.id}" th:text="${#strings.abbreviate(p.id, 10)}"></a></td>
         <td th:text="${p.nombre}"></td>
-        <td th:text="${p.precio}"></td>
-        <td th:text="${p.createAt}"></td>
+        <td th:text="${#numbers.formatCurrency(p.precio)}"></td>
+        <td th:text="${#calendars.format(p.createAt, 'dd/MM/yyyy')}"></td>
+        <td th:text="${p.categoria.nombre}"></td>
+        <td><a th:href="@{/form/} + ${p.id}">Editar</a></td>
+        <td><a th:href="@{/eliminar/} + ${p.id}" onclick="return confirm('Esta seguro que desea eliminar?');">Eliminar</a></td>
     </tr>
     </tbody>
 </table>

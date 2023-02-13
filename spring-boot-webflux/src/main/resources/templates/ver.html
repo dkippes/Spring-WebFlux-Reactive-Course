@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Titulo</title>
+</head>
+<body>
+<h1 th:text="${titulo}"></h1>
+<a th:href="@{/listar}">Volver +</a>
+
+<div>
+    <div>
+        <img th:if="${producto.foto != null && #strings.length(producto.foto) > 0}"
+             style="max-width: 25%;"
+             th:src="@{/uploads/img/} + ${producto.foto}" alt="${producto.nombre}" />
+    </div>
+    <ul>
+        <li th:text="${producto.nombre}"></li>
+        <li th:text="${producto.id}"></li>
+        <li th:text="${producto.precio}"></li>
+        <li th:text="${producto.createAt}"></li>
+    </ul>
+</div>
+</body>
+</html>
